@@ -1,56 +1,3 @@
-<script>
-import httpServices from "@/services/httpServices";
-import { URL } from "@/services/config";
-import Dialog from "@/components/Dialog.vue";
-import Alert from "@/components/Alert.vue";
-export default {
-  components: { Dialog, Alert },
-  props: ["screenWidth"],
-  data() {
-    return {
-      users: [],
-      id: "",
-      open: false,
-      openAlert: false,
-    };
-  },
-  methods: {
-    setUsers() {
-      httpServices.get(`${URL}/users/get-users`).then((res) => {
-        this.users = res.data;
-      });
-    },
-    async setAdmin(user) {
-      if (user.admin) {
-        await httpServices
-          .put(`${URL}/users/admin/${user._id}`, { admin: false })
-          .catch((err) => console.log(err));
-      } else {
-        await httpServices
-          .put(`${URL}/users/admin/${user._id}`, { admin: true })
-          .catch((err) => console.log(err));
-      }
-      this.setUsers();
-    },
-    async deleteUser(id) {
-      await httpServices
-        .delete(`${URL}/users/${id}`)
-        .then(() => {
-            this.open = false;
-          this.openAlert = true;
-        })
-        .catch((err) => console.log(err));
-    },
-    openDialog(id) {
-      this.id = id;
-      this.open = true;
-    },
-  },
-  mounted() {
-    this.setUsers();
-  },
-};
-</script>
 <template>
   <div class="container py-5">
     <table v-if="users" class="table">
@@ -96,6 +43,65 @@ export default {
       :id="this.id"
       @accept="deleteUser($event)"
     ></Dialog>
-    <Alert v-if="openAlert" content="המחיקה בוצעה בהצלחה" header="מחיקת משתמש" replace="/users"></Alert>
+    <Alert
+      v-if="openAlert"
+      content="המחיקה בוצעה בהצלחה"
+      header="מחיקת משתמש"
+      replace="/users"
+    ></Alert>
   </div>
 </template>
+
+<script>
+import httpServices from "@/services/httpServices";
+import { URL } from "@/services/config";
+import Dialog from "@/components/Dialog.vue";
+import Alert from "@/components/Alert.vue";
+export default {
+  components: { Dialog, Alert },
+  props: ["screenWidth"],
+  data() {
+    return {
+      users: [],
+      id: "",
+      open: false,
+      openAlert: false,
+    };
+  },
+  methods: {
+    setUsers() {
+      httpServices.get(`${URL}/users/get-users`).then((res) => {
+        this.users = res.data;
+      });
+    },
+    async setAdmin(user) {
+      if (user.admin) {
+        await httpServices
+          .put(`${URL}/users/admin/${user._id}`, { admin: false })
+          .catch((err) => console.log(err));
+      } else {
+        await httpServices
+          .put(`${URL}/users/admin/${user._id}`, { admin: true })
+          .catch((err) => console.log(err));
+      }
+      this.setUsers();
+    },
+    async deleteUser(id) {
+      await httpServices
+        .delete(`${URL}/users/${id}`)
+        .then(() => {
+          this.open = false;
+          this.openAlert = true;
+        })
+        .catch((err) => console.log(err));
+    },
+    openDialog(id) {
+      this.id = id;
+      this.open = true;
+    },
+  },
+  mounted() {
+    this.setUsers();
+  },
+};
+</script>

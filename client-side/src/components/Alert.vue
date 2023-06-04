@@ -1,3 +1,24 @@
+<template>
+  <div
+    class="container-fluid"
+    :style="{ width: '100%', height: height }"
+  >
+    <div class="container" :style="{ width: (1 / 2) * screenWidth + 'px' }">
+    <div class="header"><b>
+        {{header}}
+    </b>
+    </div>
+      <div class="d-block align-items-start content">
+        <p>{{ content }}</p>
+      </div>
+      <div class="buttons d-flex mx-auto">
+        <button class="btn btn-warning d-flex" @click="onAccept">אישור</button>       
+      </div>
+    </div>
+  </div>
+</template>
+
+
 <script>
 export default {
   props: ["content", "screenWidth", "header", 'replace'],
@@ -15,26 +36,6 @@ export default {
 };
 </script>
 
-<template>
-  <div
-    class="container-fluid"
-    :style="{ width: '100%', height: height }"
-  >
-    <div class="container" :style="{ width: (1 / 2) * screenWidth + 'px' }">
-    <div class="header"><b>
-        {{header}}
-    </b>
-    </div>
-      <div class="d-block align-items-start content">
-        <p>{{ content }}</p>
-      </div>
-      <div class="buttons d-flex mx-auto">
-        <button class="btn btn-warning d-flex" @click="onAccept">אישור</button>
-       
-      </div>
-    </div>
-  </div>
-</template>
 <style scoped>
 .container-fluid {
   left: 0;

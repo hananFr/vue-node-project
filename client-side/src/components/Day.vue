@@ -1,3 +1,30 @@
+<template>
+  <div
+    :style="{
+      fontSize: (screenWidth * 20) / 1590 + 'px',
+      width: (1 / 7) * 100 + '%',
+      height: `${(100 * screenWidth) / 1590}px`,
+    }"
+    :class="`${this.class} all`"
+    @click="setTheDate"
+  >
+    <div class="dates">
+      <p class="h-date">
+        {{ hebDate.day }}
+      </p>
+      <p class="day">
+        {{ date.getDate() }}
+      </p>
+    </div>
+    <div v-if="shabes" class="span mx-auto">
+      <span>שבת </span>
+    </div>
+    <div class="span mx-auto">
+      <span>{{ event }} </span>
+    </div>
+  </div>
+</template>
+
 <script>
 import {
   toJewishDate,
@@ -14,7 +41,7 @@ export default {
     return {
       hebDate: toHebrewJewishDate(toJewishDate(this.date)),
       event: "",
-      shabes: false
+      shabes: false,
     };
   },
   methods: {
@@ -22,7 +49,7 @@ export default {
       this.$emit("set-date", this.date);
     },
     checkHolidays(date) {
-      (date.getDay() == 6 )? this.shabes = true: this.shabes = false;
+      date.getDay() == 6 ? (this.shabes = true) : (this.shabes = false);
       const newDate = toJewishDate(date);
 
       if (newDate.day >= 25 && newDate.day <= 30 && newDate.month == 3) {
@@ -89,33 +116,6 @@ export default {
 };
 </script>
 
-<template>
-  <div
-    :style="{
-      fontSize: (screenWidth * 20) / 1590 + 'px',
-      width: (1 / 7) * 100 + '%',
-      height: `${(100 * screenWidth) / 1590}px`,
-    }"
-    :class="`${this.class} all`"
-    @click="setTheDate"
-  >
-    <div class="dates">
-      <p class="h-date">
-        {{ hebDate.day }}
-      </p>
-
-      <p class="day">
-        {{ date.getDate() }}
-      </p>
-    </div>
-    <div v-if="shabes" class="span mx-auto">
-      <span>שבת </span>
-    </div>
-    <div class="span mx-auto">
-      <span>{{ event }} </span>
-    </div>
-  </div>
-</template>
 <style  scoped>
 .all {
   padding: 0;

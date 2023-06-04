@@ -1,3 +1,106 @@
+<template>
+  8
+  <div
+    class="form"
+    :style="{
+      minHeight: height + 'px',
+      fontSize: (20 * screenWidth) / 1250 + 'px',
+    }"
+  >
+    <form @submit.prevent="onSubmit" class="col-11 col-lg-5 mx-auto">
+      <page-header
+        class="mb-4 mb-smg-5"
+        :page-header="pageHeader"
+        :content="content"
+      ></page-header>
+      <input-copm
+        :id="input.name"
+        v-for="input in inputs"
+        :key="input.name"
+        :label="input.label"
+        :name="input.name"
+        :model="data[input.name]"
+        :type="input.type"
+        @set-value="setValue(input.key, $event)"
+      ></input-copm>
+
+      <div v-for="text in texts" :id="text.name" :key="texts.indexOf(text)">
+        <label :for="text.name" class="form-label">{{ text.label }}</label>
+        <textarea
+          v-model="data[text.key]"
+          class="form-control"
+          :name="text.name"
+          rows="3"
+        ></textarea>
+      </div>
+      <div v-if="selects && selects[0]">
+        <div v-for="select in selects" :key="selects.indexOf(select)">
+          <select
+            :id="select.key"
+            v-model="data[select.key]"
+            :name="select.name"
+            :data-label-option="select.defaultValue"
+          >
+            <option
+              v-for="option in select.options"
+              :key="select.options.indexOf(option)"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div v-for="file in files" :id="file.name" :key="files.indexOf(file)">
+        <file
+          :model="checkModel(file.key)"
+          @set-file="handleFileUpload(file.key, $event)"
+        ></file>
+        <img
+          v-if="data[file.name]"
+          :src="imageSrc[`imgSrc${file.key}`]"
+          :style="{ width: (200 * screenWidth) / 1250 + 'px' }"
+          alt="uploaded_files"
+        />
+      </div>
+      <div v-if="dates && dates[0]">
+        <div v-for="date in dates" :key="dates.indexOf(date)">
+          <img
+            :width="(70 * screenWidth) / 1590"
+            class="btn"
+            :src="require('../assets/calendar.jpg')"
+            alt="calendar_pic"
+            @click="openToggle(date.key)"
+          />
+
+          <Callendar
+            v-if="toggles[date.key]"
+            :toggle="toggles[date.key]"
+            @set-month="defaults[date.defaultName] = $event"
+            @set-default="defaults[date.defaultName] = $event"
+            :date="data[date.key]"
+            @set-date="setTheDate($event, date.key)"
+            @close="toggles[date.key] = $event"
+            :default-date="defaults[date.defaultName]"
+          ></Callendar>
+          <input
+            class="rounded bg-light color-dark"
+            v-if="data[date.key]"
+            disabled
+            type="input"
+            :value="`${hebJew[date.key]} -${data[date.key].getDate()}.${
+              data[date.key].getMonth() + 1
+            }.${data[date.key].getFullYear()}`"
+          />
+        </div>
+      </div>
+      <button @click="setValidate" class="btn btn-primary">
+        {{ btnText }}
+      </button>
+    </form>
+  </div>
+</template>
+
+
 <script>
 import { formatJewishDateInHebrew, toJewishDate } from "jewish-date";
 import PageHeader from "@/components/PageHeader.vue";
@@ -116,13 +219,12 @@ export default {
       if (this.files && document.getElementById(this.files[0].name)) {
         for (const file in this.files) {
           height += document.getElementById(this.files[0].name).offsetHeight;
-          if(document.getElementById(
-            this.imageSrc[`imgSrc${file.key}`]
-          )){ height += document.getElementById(
-            this.imageSrc[`imgSrc${file.key}`]
-          ).offsetHeight;
-          let height = this.height
-          height += 200*this.screenWidth/1250
+          if (document.getElementById(this.imageSrc[`imgSrc${file.key}`])) {
+            height += document.getElementById(
+              this.imageSrc[`imgSrc${file.key}`]
+            ).offsetHeight;
+            let height = this.height;
+            height += (200 * this.screenWidth) / 1250;
           }
         }
       }
@@ -140,7 +242,7 @@ export default {
         this.screenWidth = window.innerWidth * 2;
       else this.screenWidth = window.innerWidth * 2.5;
     },
-     handleFileUpload(key, e) {
+    handleFileUpload(key, e) {
       let reader = new FileReader();
       reader.onload = (event) => {
         const data = event.target.result;
@@ -148,12 +250,12 @@ export default {
         this.imageSrc[`imgSrc${key}`] = data;
       };
       reader.readAsDataURL(e);
-      
+
       let height = this.height;
-      height += 200*this.screenWidth/1250 + 70*this.screenWidth/1590
+      height +=
+        (200 * this.screenWidth) / 1250 + (70 * this.screenWidth) / 1590;
       this.height = height;
     },
-    
 
     onSubmit() {
       if (
@@ -216,7 +318,7 @@ export default {
     this.onResize();
     window.addEventListener("resize", this.onResize);
     window.addEventListener("resize", this.setHeight);
-    this.setHeight()
+    this.setHeight();
   },
   watch: {
     model(value) {
@@ -226,114 +328,13 @@ export default {
         this.imageSrc[`imgSrc${file.key}`] = value[file.key];
       });
     },
-    height(){
+    height() {
       this.updateImageHeight();
     },
   },
   components: { PageHeader, InputCopm, File, Callendar, Callendar },
 };
 </script>
-
-<template>
-  <div
-    class="form"
-    :style="{
-      minHeight: height + 'px',
-      fontSize: (20 * screenWidth) / 1250 + 'px',
-    }"
-  >
-    <form @submit.prevent="onSubmit" class="col-11 col-lg-5 mx-auto">
-      <page-header
-        class="mb-4 mb-smg-5"
-        :page-header="pageHeader"
-        :content="content"
-      ></page-header>
-      <input-copm
-        :id="input.name"
-        v-for="input in inputs"
-        :key="input.name"
-        :label="input.label"
-        :name="input.name"
-        :model="data[input.name]"
-        :type="input.type"
-        @set-value="setValue(input.key, $event)"
-      ></input-copm>
-
-      <div v-for="text in texts" :id="text.name" :key="texts.indexOf(text)">
-        <label :for="text.name" class="form-label">{{ text.label }}</label>
-        <textarea
-          v-model="data[text.key]"
-          class="form-control"
-          :name="text.name"
-          rows="3"
-        ></textarea>
-      </div>
-      <div v-if="selects && selects[0]">
-        <div v-for="select in selects" :key="selects.indexOf(select)">
-          <select
-            :id="select.key"
-            v-model="data[select.key]"
-            :name="select.name"
-            :data-label-option="select.defaultValue"
-          >
-            <option
-              v-for="option in select.options"
-              :key="select.options.indexOf(option)"
-            >
-              {{ option }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div v-for="file in files" :id="file.name" :key="files.indexOf(file)">
-        <file
-          :model="checkModel(file.key)"
-          @set-file="handleFileUpload(file.key, $event)"
-        ></file>
-        <img
-          v-if="data[file.name]"
-          :src="imageSrc[`imgSrc${file.key}`]"
-          :style="{ width: (200 * screenWidth) / 1250 + 'px' }"
-          alt="uploaded_files"
-        />
-      </div>
-      <div v-if="dates && dates[0]">
-        <div v-for="date in dates" :key="dates.indexOf(date)">
-          <img
-            :width="(70 * screenWidth) / 1590"
-            class="btn"
-            :src="require('../assets/calendar.jpg')"
-            alt="calendar_pic"
-            @click="openToggle(date.key)"
-          />
-
-          <Callendar
-            v-if="toggles[date.key]"
-            :toggle="toggles[date.key]"
-            @set-month="defaults[date.defaultName] = $event"
-            @set-default="defaults[date.defaultName] = $event"
-            :date="data[date.key]"
-            @set-date="setTheDate($event, date.key)"
-            @close="toggles[date.key] = $event"
-            :default-date="defaults[date.defaultName]"
-          ></Callendar>
-          <input
-            class="rounded bg-light color-dark"
-            v-if="data[date.key]"
-            disabled
-            type="input"
-            :value="`${hebJew[date.key]} -${data[date.key].getDate()}.${
-              data[date.key].getMonth() + 1
-            }.${data[date.key].getFullYear()}`"
-          />
-        </div>
-      </div>
-      <button @click="setValidate" class="btn btn-primary">
-        {{ btnText }}
-      </button>
-    </form>
-  </div>
-</template>
 
 <style>
 .form {

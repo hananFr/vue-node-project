@@ -3,41 +3,41 @@
     <MyNav :screen-width="screenWidth"></MyNav>
     <router-view :screen-width="screenWidth"></router-view>
     <Footer></Footer>
-    
   </div>
 </template>
+
 <script>
 import MyNav from "./components/MyNav.vue";
 import About from "./components/About.vue";
 import Footer from "./components/footer.vue";
 
 export default {
-  components: { MyNav, About, Footer},
-  data(){
+  components: { MyNav, About, Footer },
+  data() {
     return {
-      screenWidth: window.innerWidth 
-    }
+      screenWidth: window.innerWidth,
+    };
   },
-  methods:{
+  methods: {
     onResize() {
       this.screenWidth = window.innerWidth;
-      
-      if(window.innerWidth >= 576)
-      this.screenWidth = window.innerWidth;
-       else if( window.innerWidth > 520) this.screenWidth = window.innerWidth * 1.35; 
-       else if( window.innerWidth > 430) this.screenWidth = window.innerWidth * 1.35; 
-       else if( window.innerWidth > 370) this.screenWidth = window.innerWidth * 1.45; 
-       else if( window.innerWidth > 300) this.screenWidth = window.innerWidth * 1.5 
-      else this.screenWidth = window.innerWidth * 1.65
-      ; 
 
+      if (window.innerWidth >= 576) this.screenWidth = window.innerWidth;
+      else if (window.innerWidth > 520)
+        this.screenWidth = window.innerWidth * 1.35;
+      else if (window.innerWidth > 430)
+        this.screenWidth = window.innerWidth * 1.35;
+      else if (window.innerWidth > 370)
+        this.screenWidth = window.innerWidth * 1.45;
+      else if (window.innerWidth > 300)
+        this.screenWidth = window.innerWidth * 1.5;
+      else this.screenWidth = window.innerWidth * 1.65;
     },
   },
-  mounted(){
-    this.onResize()
-    window.addEventListener('resize', this.onResize)
-  }
-  
+  mounted() {
+    this.onResize();
+    window.addEventListener("resize", this.onResize);
+  },
 };
 </script>
 <style>
@@ -51,7 +51,6 @@ export default {
   margin: 0;
   overflow-x: hidden;
 }
-
 
 nav a {
   font-family: "Assistant", sans-serif;

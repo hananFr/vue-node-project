@@ -1,3 +1,41 @@
+<template>
+  <div
+    class="container-fluid col-12"
+    :style="{
+      minHeight: height + 'px',
+    }"
+  >
+    <div class="d-flex col-12">
+      <div class="d-block col-12">
+        <div
+          v-once
+          class="page-header"
+          :style="{ paddingBottom: (40 * screenWidth) / 1250 + 'px' }"
+        >
+          <page-header
+            class=""
+            page-header="הטיולים שלנו"
+            content="לחצו על אחד הטיולים כדי לראות את כל הפרטים עליו"
+          ></page-header>
+        </div>
+        <div
+          v-if="cards"
+          class="d-flex cards col-12 mx-auto justify-content-center text-center"
+        >
+          <card
+            v-for="card in cards"
+            :screen-width="screenWidth"
+            :key="cards.indexOf(card)"
+            :card="card"
+            :cardWidth="cardWidth"
+          ></card>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+
 <script>
 import { URL } from "@/services/config";
 import httpServices from "@/services/httpServices";
@@ -42,12 +80,12 @@ export default {
       this.height =
         (400 * lines * screenWidth) / 1250 +
         (((486.4 / 368) * cardWidth) / 100) * lines * screenWidth;
-        if(lines === 1) this.height += 250 * lines * screenWidth/1250;
-        if(window.innerWidth < 300) this.height += 150*screenWidth/1250
-        if(window.innerWidth < 200) this.height += 50*screenWidth/1250
-        if(window.innerWidth < 160) this.height += 100*screenWidth/1250
-        if(window.innerWidth < 90) this.height += 300*screenWidth/1250
-        if(window.innerWidth < 75) this.height += 300*screenWidth/1250
+      if (lines === 1) this.height += (250 * lines * screenWidth) / 1250;
+      if (window.innerWidth < 300) this.height += (150 * screenWidth) / 1250;
+      if (window.innerWidth < 200) this.height += (50 * screenWidth) / 1250;
+      if (window.innerWidth < 160) this.height += (100 * screenWidth) / 1250;
+      if (window.innerWidth < 90) this.height += (300 * screenWidth) / 1250;
+      if (window.innerWidth < 75) this.height += (300 * screenWidth) / 1250;
     },
     updateImageHeight() {
       const container = document.querySelector(".container-fluid");
@@ -88,7 +126,9 @@ export default {
     httpServices
       .get(URL + "/cards/my-cards")
       .then((res) => {
-        const cards = res.data.sort((a, b) => new Date(a.travelDate) - new Date(b.travelDate));
+        const cards = res.data.sort(
+          (a, b) => new Date(a.travelDate) - new Date(b.travelDate)
+        );
         this.cards = cards;
         this.onResize();
       })
@@ -97,42 +137,7 @@ export default {
   },
 };
 </script>
-<template>
-  <div
-    class="container-fluid col-12"
-    :style="{
-      minHeight: height + 'px',
-    }"
-  >
-    <div class="d-flex col-12">
-      <div class="d-block col-12">
-        <div
-          v-once
-          class="page-header"
-          :style="{ paddingBottom: (40 * screenWidth) / 1250 + 'px' }"
-        >
-          <page-header
-            class=""
-            page-header="הטיולים שלנו"
-            content="לחצו על אחד הטיולים כדי לראות את כל הפרטים עליו"
-          ></page-header>
-        </div>
-        <div
-          v-if="cards"
-          class="d-flex cards col-12 mx-auto justify-content-center text-center"
-        >
-          <card
-            v-for="card in cards"
-            :screen-width="screenWidth"
-            :key="cards.indexOf(card)"
-            :card="card"
-            :cardWidth="cardWidth"
-          ></card>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
+
 <style scoped>
 .container-fluid {
   align-items: center;

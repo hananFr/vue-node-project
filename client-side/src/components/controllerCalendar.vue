@@ -1,3 +1,14 @@
+<template>
+  <div class="controller" :style="{fontSize: 26 * screenWidth / 1590 +'px'}">
+    <b class="btn btn-primary bold mx-3" @click="changeMonth(-1)"> {{ `<` }} </b>
+    <b class="month mx-2">{{ months[defaultDate.getMonth()] }}</b>
+    <b class="month mx-2"
+      >{{ hebMonths[hebDefault] }}-{{ hebMonths[hebEnd] }}</b
+    >
+    <b @click="changeMonth(1)" class="btn btn-primary bold mx-3"> {{ `>` }} </b>
+  </div>
+</template>
+
 <script>
 import { HDate } from "@hebcal/core";
 
@@ -64,16 +75,7 @@ export default {
   },
 };
 </script>
-<template>
-  <div class="controller" :style="{fontSize: 26 * screenWidth / 1590 +'px'}">
-    <b class="btn btn-primary bold mx-3" @click="changeMonth(-1)"> {{ `<` }} </b>
-    <b class="month mx-2">{{ months[defaultDate.getMonth()] }}</b>
-    <b class="month mx-2"
-      >{{ hebMonths[hebDefault] }}-{{ hebMonths[hebEnd] }}</b
-    >
-    <b @click="changeMonth(1)" class="btn btn-primary bold mx-3"> {{ `>` }} </b>
-  </div>
-</template>
+
 <style scoped>
 .controller {
   width: 100%;

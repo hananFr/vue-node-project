@@ -1,3 +1,49 @@
+<template>
+  <div
+    :style="{
+      height: height + 'px',
+      width: '100%',
+      fontSize: (20 * screenWidth) / 1590 + 'px',
+    }"
+    class="container-fluid"
+  >
+    <div
+      class="container col-12 col-sm-9 col-md-8 col-lg-7 col-xl-6 d-flex mx-auto my-0 py-0 px-0"
+    >
+      <div class="d-block header-callendar col-12 px-0 mx-0">
+        <div>
+          <ControllerCalendar
+            :screenWidth="screenWidth"
+            :default-date="defaultDate"
+            @set-month="changeMonth"
+          ></ControllerCalendar>
+        </div>
+        <div class="d-flex col-12 mx-0">
+          <div
+            :style="{ width: (1 / 7) * 100 + '%' }"
+            v-for="day in daysInWeek"
+            :key="daysInWeek.indexOf(day)"
+            class="day mx-0"
+          >
+            <b class="mx-auto"> {{ " " + day + " " }} </b>
+          </div>
+        </div>
+        <div class="d-flex body-callendar">
+          <day
+            :screen-width="screenWidth"
+            @set-date="handleClick"
+            v-for="day in days"
+            :key="days.indexOf(day)"
+            :date="day.date"
+            :class="day.class"
+          ></day>
+        </div>
+      </div>
+      <footer-calendar @toggle="handleBtn"></footer-calendar>
+    </div>
+  </div>
+</template>
+
 <script>
 import ControllerCalendar from "./controllerCalendar.vue";
 import Day from "./Day.vue";
@@ -69,7 +115,11 @@ export default {
       newDate.setDate(newDate.getDate() - newDate.getDay());
       for (let i = 0; i < daysInCallendar; i++) {
         let className;
-        const day = new Date(newDate.getFullYear(),newDate.getMonth(),newDate.getDate() + i);
+        const day = new Date(
+          newDate.getFullYear(),
+          newDate.getMonth(),
+          newDate.getDate() + i
+        );
         if (
           day.getDate() == this.selectedDate.getDate() &&
           day.getMonth() == this.selectedDate.getMonth()
@@ -138,59 +188,7 @@ export default {
   },
 };
 </script>
-<template>
-  <div
-    :style="{
-      height: height + 'px',
-      width: '100%',
-      fontSize: (20 * screenWidth) / 1590 + 'px',
-    }"
-    class="container-fluid"
-  >
-    <div
-      class="
-        container
-        col-12 col-sm-9 col-md-8 col-lg-7 col-xl-6
-        d-flex
-        mx-auto
-        my-0
-        py-0
-        px-0
-      "
-    >
-      <div class="d-block header-callendar col-12 px-0 mx-0">
-        <div>
-          <ControllerCalendar
-            :screenWidth="screenWidth"
-            :default-date="defaultDate"
-            @set-month="changeMonth"
-          ></ControllerCalendar>
-        </div>
-        <div class="d-flex col-12 mx-0">
-          <div
-            :style="{ width: (1 / 7) * 100 + '%' }"
-            v-for="day in daysInWeek"
-            :key="daysInWeek.indexOf(day)"
-            class="day mx-0"
-          >
-            <b class="mx-auto"> {{ " " + day + " " }} </b>
-          </div>
-        </div>
-        <div class="d-flex body-callendar">
-          <day
-            :screen-width="screenWidth"
-            @set-date="handleClick"
-            v-for="day in days"
-            :key="days.indexOf(day)"
-            :date="day.date"
-            :class="day.class"
-          ></day>
-        </div>
-      </div>
-      <footer-calendar @toggle="handleBtn"></footer-calendar>
-    </div>
-  </div>
-</template>
+
 <style scoped>
 .container-fluid {
   left: 0;

@@ -1,3 +1,36 @@
+<template>
+  <div
+    class="day"
+    :style="{
+      borderWidth: (screenWidth * 1) / 1590 + 'px',
+      width: `${(1 / 7) * 100}%`,
+      height: `${((this.screenWidth * 2) / 3 / 7) * 1.4}px`,
+    }"
+  >
+    <div>
+      <div
+        :style="{ fontSize: (16 * this.screenWidth) / 1250 + 'px' }"
+        className=" d-flex dates"
+      >
+        <p :style="{ paddingRight: '0.1%' }" class="float-right mr-0">
+          {{ hebDate }}
+        </p>
+        <p class="date" :style="{ paddingLeft: '0.1%' }">
+          {{ this.day.getDate() }}
+        </p>
+      </div>
+      <div
+        :style="{ fontSize: (25 * this.screenWidth) / 1250 + 'px' }"
+        v-if="event"
+        class="span mt-0"
+      >
+        <span>{{ event }} </span>
+      </div>
+    </div>
+  </div>
+</template>
+
+
 <script>
 import { HDate } from "@hebcal/core";
 
@@ -56,38 +89,7 @@ export default {
   },
 };
 </script>
-<template>
-  <div
-    class="day"
-    :style="{
-      borderWidth: (screenWidth * 1) / 1590 + 'px',
-      width: `${(1 / 7) * 100}%`,
-      height: `${((this.screenWidth * 2) / 3 / 7) * 1.4}px`,
-    }"
-  >
-    <div>
-      <div
-        :style="{ fontSize: (16 * this.screenWidth) / 1250 + 'px' }"
-        className=" d-flex dates"
-      >
-        <p :style="{ paddingRight: '0.1%' }" class="float-right mr-0 ">
-          {{ hebDate }}
-        </p>
 
-        <p class="date" :style="{ paddingLeft: '0.1%' }">
-          {{ this.day.getDate() }}
-        </p>
-      </div>
-      <div
-        :style="{ fontSize: (25 * this.screenWidth) / 1250 + 'px' }"
-        v-if="event"
-        class="span mt-0"
-      >
-        <span>{{ event }} </span>
-      </div>
-    </div>
-  </div>
-</template>
 <style scoped>
 .day {
   display: block;
@@ -115,7 +117,7 @@ export default {
   margin: 0;
   padding: 0;
   position: relative;
-  top:-15px;
+  top: -15px;
   padding-left: 10%;
   padding-right: 10%;
 }

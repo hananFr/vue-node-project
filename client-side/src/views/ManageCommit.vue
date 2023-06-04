@@ -1,3 +1,41 @@
+<template>
+  <div class="container-fluid">
+    <page-header
+      pageHeader="ניהול תגובות"
+      content="כאן תוכל להוסיף ולמחוק תגובות מדף הבית"
+    ></page-header>
+    <table v-if="commits" class="table">
+      <tr v-for="commit in commits" :key="commit._id">
+        <td>{{ commit.content }}</td>
+        <td>
+          <button class="btn bg-primary" @click="openDialog(commit._id)">
+            מחק
+          </button>
+        </td>
+      </tr>
+    </table>
+    <div v-if="dialog">
+      <Dialog
+        content="התגובה הזאת תימחק, האם אתה בטוח?"
+        @accept="deleteCommit($event)"
+        @cancel="dialog = $event"
+        :screenWidth="screenWidth"
+        :id="id"
+        header="מחיקת תגובה"
+      ></Dialog>
+    </div>
+    <div v-if="alert">
+      <Alert
+        content="התגובה הוסרה בהצלחה"
+        :screenWidth="screenWidth"
+        header="מחיקת תגובה"
+        replace="/#/manage-commits"
+      ></Alert>
+    </div>
+    <create-commit :screen-width="screenWidth"></create-commit>
+  </div>
+</template>
+
 <script>
 import { URL } from "@/services/config";
 import httpServices from "@/services/httpServices";
@@ -43,43 +81,7 @@ export default {
   },
 };
 </script>
-<template>
-  <div class="container-fluid">
-    <page-header
-      pageHeader="ניהול תגובות"
-      content="כאן תוכל להוסיף ולמחוק תגובות מדף הבית"
-    ></page-header>
-    <table v-if="commits" class="table">
-      <tr v-for="commit in commits" :key="commit._id">
-        <td>{{ commit.content }}</td>
-        <td>
-          <button class="btn bg-primary" @click="openDialog(commit._id)">
-            מחק
-          </button>
-        </td>
-      </tr>
-    </table>
-    <div v-if="dialog">
-      <Dialog
-        content="התגובה הזאת תימחק, האם אתה בטוח?"
-        @accept="deleteCommit($event)"
-        @cancel="dialog = $event"
-        :screenWidth="screenWidth"
-        :id="id"
-        header="מחיקת תגובה"
-      ></Dialog>
-    </div>
-    <div v-if="alert">
-      <Alert
-        content="התגובה הוסרה בהצלחה"
-        :screenWidth="screenWidth"
-        header="מחיקת תגובה"
-        replace="/#/manage-commits"
-      ></Alert>
-    </div>
-    <create-commit :screen-width="screenWidth"></create-commit>
-  </div>
-</template>
+
 <style scoped>
 tr {
   border: gainsboro;

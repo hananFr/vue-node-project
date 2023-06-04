@@ -2,18 +2,7 @@
   <div class="container-fluid text-center d-flex align-items-end">
     <div class="col-1 d-block d-lg-none">
       <nav
-        class="
-          col-12
-          navbar
-          align-items-start
-          float-right
-          mx-auto
-          justify-content-center
-          navbar-light
-          d-lg-none
-          w-100
-          h-200
-        "
+        class="col-12 navbar align-items-start float-right mx-auto justify-content-center navbar-light d-lg-none w-100 h-200"
       >
         <span
           @click="toggleMenu"
@@ -38,47 +27,57 @@
         alt="logo_pic"
       />
     </div>
-    <div class="container d-none d-lg-flex  justify-content-end">
+    <div class="container d-none d-lg-flex justify-content-end">
       <router-link
-      
         v-for="link in navLinks"
         :key="navLinks.indexOf(link)"
         :class="link.class"
         :to="link.link"
         >{{ link.text }}</router-link
       >
-      </div>
-      <div class="dropdown ml-5 d-none d-lg-flex" v-if="user">
-        <button @click="toggle" class=" btn m-0 p-0 link btn-muted " type="button" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-          ניהול
-        </button>
-        <div v-if="dropdown" class="dropdown-menu d-block" aria-labelledby="dropdown">
-          <div class="d-block" v-if="user.admin">
-          <router-link
-          class="nav-item d-inline-block text-right col-12"
-        v-for="link in adminLinks"
-        :key="adminLinks.indexOf(link)"
-        :class="link.class"
-        @mouseover="()=> link.class = 'bg-primary link'"
-        @mouseleave="() => link.class = 'link'"
-        :to="link.link"
-        >{{ link.text }}</router-link
-      >   
     </div>
-          <div class="d-block" v-if="user">
+    <div class="dropdown ml-5 d-none d-lg-flex" v-if="user">
+      <button
+        @click="toggle"
+        class="btn m-0 p-0 link btn-muted"
+        type="button"
+        id="dropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        ניהול
+      </button>
+      <div
+        v-if="dropdown"
+        class="dropdown-menu d-block"
+        aria-labelledby="dropdown"
+      >
+        <div class="d-block" v-if="user.admin">
           <router-link
-          class="nav-item d-inline-block text-right col-12"
-        v-for="link in userLinks"
-        :key="userLinks.indexOf(link)"
-        :class="link.class"
-        @mouseover="()=> link.class = 'bg-primary link'"
-        @mouseleave="() => link.class = 'link'"
-        :to="link.link"
-        >{{ link.text }}</router-link
-      >   
+            class="nav-item d-inline-block text-right col-12"
+            v-for="link in adminLinks"
+            :key="adminLinks.indexOf(link)"
+            :class="link.class"
+            @mouseover="() => (link.class = 'bg-primary link')"
+            @mouseleave="() => (link.class = 'link')"
+            :to="link.link"
+            >{{ link.text }}</router-link
+          >
+        </div>
+        <div class="d-block" v-if="user">
+          <router-link
+            class="nav-item d-inline-block text-right col-12"
+            v-for="link in userLinks"
+            :key="userLinks.indexOf(link)"
+            :class="link.class"
+            @mouseover="() => (link.class = 'bg-primary link')"
+            @mouseleave="() => (link.class = 'link')"
+            :to="link.link"
+            >{{ link.text }}</router-link
+          >
+        </div>
+      </div>
     </div>
-      </div>
-      </div>
   </div>
 </template>
 <script>
@@ -86,7 +85,7 @@ import { getCurrentUser } from "@/services/userService";
 import mune from "./mune.vue";
 export default {
   components: { mune },
-  props:['screenWidth'],
+  props: ["screenWidth"],
   data() {
     return {
       user: {},
@@ -106,7 +105,7 @@ export default {
         { link: "/manage-commits", class: "link", text: "נהל תגובות" },
       ],
       userLinks: [
-        { link: '', class: "link", text: "ערוך פרופיל" },
+        { link: "", class: "link", text: "ערוך פרופיל" },
         { link: "/logout", class: "link", text: "התנתק" },
       ],
     };
@@ -118,27 +117,25 @@ export default {
     closeToggle(close) {
       this.open = close;
     },
-    toggle(){
-    (!this.dropdown)? this.dropdown = true : this.dropdown = false;
-  },
-  closeDropdown(e){
-    const element = document.getElementById('dropdown');
-    if(e.target !== element){
-      this.dropdown = false
-    }
-  }
+    toggle() {
+      !this.dropdown ? (this.dropdown = true) : (this.dropdown = false);
+    },
+    closeDropdown(e) {
+      const element = document.getElementById("dropdown");
+      if (e.target !== element) {
+        this.dropdown = false;
+      }
+    },
   },
   mounted() {
     const user = getCurrentUser();
     this.user = user;
-    if(user) this.userLinks[0].link = `edit-profile/${user._id}`
-    window.addEventListener('click', this.closeDropdown)  
+    if (user) this.userLinks[0].link = `edit-profile/${user._id}`;
+    window.addEventListener("click", this.closeDropdown);
   },
-  
 };
 </script>
 <style scoped>
-
 .container {
   display: flex;
   width: 80%;
@@ -170,12 +167,12 @@ img {
   text-decoration: none;
   margin-left: 5%;
 }
-.dropdown-menu{
+.dropdown-menu {
   text-align: right;
   display: none;
   top: 48px;
-  left: 0px
+  left: 0px;
 }
-.dropdown-item{
+.dropdown-item {
 }
 </style>

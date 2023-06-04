@@ -1,3 +1,37 @@
+<template>
+  <div
+    class="container-fluid col-12"
+    :style="{ height: `${(750 * this.screenWidth) / 1350}px` }"
+  >
+    <div class="container col-12">
+      <div
+        class="col-12"
+        :style="{
+          fontSize: `${(26 * this.screenWidth) / 1250}px`,
+          paddingBottom: `${(20 * screenWidth) / 1250}px`,
+        }"
+      >
+        <b>דברים טובים שכתבו לנו</b>
+      </div>
+      <div
+        class="commits justify-between col-12"
+        :style="{ fontSize: `${(22 * this.screenWidth) / 1250}px` }"
+      >
+        <div
+          v-for="commit in getCommits"
+          class="commit"
+          :key="commits.indexOf(commit)"
+          :style="commit.style"
+        >
+          <p>"{{ commit.content }}"</p>
+        </div>
+
+        <p />
+      </div>
+    </div>
+  </div>
+</template>
+
 <script>
 import { URL } from "@/services/config";
 import axios from "axios";
@@ -13,7 +47,6 @@ export default {
   },
 
   methods: {
-    
     async setCommits() {
       await axios
         .get(`${URL}/commits`)
@@ -28,7 +61,6 @@ export default {
   mounted() {
     this.setCommits();
     window.setInterval(() => this.counter++, 5000);
- 
   },
   computed: {
     getCommits() {
@@ -37,77 +69,64 @@ export default {
         for (var i = 0; i < 5; i++) {
           if (i === 0)
             commits.push({
-              content: this.commits[(this.counter - i) % this.commits.length].content,
+              content:
+                this.commits[(this.counter - i) % this.commits.length].content,
               style: {
                 margin: 0,
-                right: -200*this.screenWidth/1250 + "px",
+                right: (-200 * this.screenWidth) / 1250 + "px",
                 position: "relative",
                 zIndex: 0,
               },
             });
           if (i === 1)
             commits.push({
-              content: this.commits[(this.counter - i) % this.commits.length].content,
-              style: { margin: 0, right: -100*this.screenWidth/1250 +'px', position: "relative", zIndex: 0 },
+              content:
+                this.commits[(this.counter - i) % this.commits.length].content,
+              style: {
+                margin: 0,
+                right: (-100 * this.screenWidth) / 1250 + "px",
+                position: "relative",
+                zIndex: 0,
+              },
             });
           else if (i === 2)
             commits.push({
-              content: this.commits[(this.counter - i) % this.commits.length].content,
+              content:
+                this.commits[(this.counter - i) % this.commits.length].content,
               style: { margin: 0, position: "relative", zIndex: 0 },
             });
           else if (i === 3)
             commits.push({
-              content: this.commits[(this.counter - i) % this.commits.length].content,
-              style: { margin: 0, left: -100*this.screenWidth/1250 +'px', position: "relative", zIndex: 0 },
+              content:
+                this.commits[(this.counter - i) % this.commits.length].content,
+              style: {
+                margin: 0,
+                left: (-100 * this.screenWidth) / 1250 + "px",
+                position: "relative",
+                zIndex: 0,
+              },
             });
           else if (i === 4)
             commits.push({
-              content: this.commits[(this.counter - i) % this.commits.length].content,
-              style: { margin: 0, left: -200*this.screenWidth/1250 +'px', position: "relative", zIndex: 0 },
+              content:
+                this.commits[(this.counter - i) % this.commits.length].content,
+              style: {
+                margin: 0,
+                left: (-200 * this.screenWidth) / 1250 + "px",
+                position: "relative",
+                zIndex: 0,
+              },
             });
         }
         return commits;
       } else return "wrong";
     },
   },
-  
 };
 </script>
 
-<template>
-  <div class="container-fluid col-12" :style="{ height: `${(750 * this.screenWidth) / 1350}px` }">
-  <div
-    class="container col-12"
-    
-  >
-    <div
-      class="col-12"
-      :style="{ fontSize: `${(26 * this.screenWidth) / 1250}px`, paddingBottom: `${20*screenWidth/1250}px`}"
-    >
-      <b>דברים טובים שכתבו לנו</b>
-    </div>
-    <div
-      class="commits justify-between col-12"
-      :style="{ fontSize: `${(22 * this.screenWidth) / 1250}px` }"
-    >
-      <div
-        v-for="commit in getCommits"
-        class="commit"
-        :key="commits.indexOf(commit)"
-        :style="commit.style"
-      >
-        <p >"{{ commit.content }}"</p>
-      </div>
-
-      <p />
-    </div>
-  </div>
-  </div>
-</template>
-
 <style scoped>
-
-.container-fluid{
+.container-fluid {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,7 +144,7 @@ export default {
   margin: 0;
   justify-content: center;
 }
-.commits{
+.commits {
   display: flex;
   font-style: italic;
   text-align: center;
@@ -133,12 +152,11 @@ export default {
   padding: 0;
   margin: 0, auto;
 }
-.commit{
+.commit {
   display: flex;
   text-align: center;
   width: 22%;
   position: relative;
   margin: 0;
-  
 }
 </style>

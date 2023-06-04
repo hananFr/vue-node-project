@@ -1,5 +1,63 @@
+<template>
+  <div class="d-block">
+    <page-header
+      page-header="שיתופי פעולה"
+      content="גופים ואירגונים שיצרנו איתם טיולים נהדרים"
+    ></page-header>
+    <div
+      class="mx-auto cards"
+      :style="{ width: `${(8 / 12) * screenWidth}px` }"
+    >
+      <div
+        v-for="card in collaborations"
+        :key="collaborations.indexOf(card)"
+        class="card bg-muted"
+        :style="{
+          width: '17%',
+          marginLeft: '4.05%',
+          display: 'flex',
+          border: 'none',
+        }"
+      >
+        <a :href="card.link">
+          <img
+            :src="require(`../assets/${card.img}`)"
+            class="p-0"
+            alt="collaborations_pic"
+          />
+          <p
+            class="col-12 mx-auto"
+            :style="{ fontSize: `${(16 * this.screenWidth) / 1250}px` }"
+          >
+            {{ card.line1 }}<br />
+            {{ card.line2 }}
+          </p>
+        </a>
+      </div>
+    </div>
+    <div
+      class="mx-auto"
+      :style="{
+        width: `${(6 / 12) * screenWidth}px`,
+        marginBottom: `${(20 * screenWidth) / 1250}px`,
+      }"
+    >
+      <page-header
+        content="ועוד עשרות בתי ספר, חדרי מורים, קהילות ומקומות עבודה מכל רחבי הארץ
+רוצים גם לשתף איתנו פעולה? יש לכם רעיון ליוזמה משותפת?"
+      ></page-header>
+    </div>
+    <btn-comp
+      :screenWidth="screenWidth"
+      @on-click="$router.replace('/contact')"
+      buttonText="צרו קשר"
+    ></btn-comp>
+  </div>
+</template>
+
+
 <script>
-import BtnComp from './btnComp.vue';
+import BtnComp from "./btnComp.vue";
 import PageHeader from "./PageHeader.vue";
 export default {
   components: { PageHeader, BtnComp },
@@ -28,49 +86,6 @@ export default {
   },
 };
 </script>
-
-<template>
-  <div class="d-block">
-    <page-header
-      page-header="שיתופי פעולה"
-      content="גופים ואירגונים שיצרנו איתם טיולים נהדרים"
-    ></page-header>
-    <div class="mx-auto cards" :style="{ width:`${8/12*screenWidth}px`}">
-      <div
-        v-for="card in collaborations"
-        :key="collaborations.indexOf(card)"
-        class="card bg-muted"
-        :style="{
-          width: '17%',
-          marginLeft: '4.05%',
-          display: 'flex',
-          border: 'none',
-        }"
-      >
-        <a
-          :href="card.link"
-        >
-          <img
-            :src="require(`../assets/${card.img}`)"
-            class="p-0"
-            alt="collaborations_pic"
-          />
-          <p class="col-12 mx-auto" :style="{ fontSize: `${16*this.screenWidth/1250}px` }">
-            {{ card.line1 }}<br />
-            {{ card.line2 }}
-          </p>
-          
-        </a>
-      </div>
-    </div>
-    <div class="mx-auto" :style="{ width:`${6/12*screenWidth}px`, marginBottom:`${20*screenWidth/1250}px`}"> 
-    <page-header content="ועוד עשרות בתי ספר, חדרי מורים, קהילות ומקומות עבודה מכל רחבי הארץ
-רוצים גם לשתף איתנו פעולה? יש לכם רעיון ליוזמה משותפת?"></page-header>
-    
-  </div>
-  <btn-comp :screenWidth="screenWidth" @on-click="$router.replace('/contact')" buttonText="צרו קשר"></btn-comp>
-  </div>
-</template>
 
 <style scoped>
 .cards {

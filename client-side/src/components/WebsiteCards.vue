@@ -92,7 +92,9 @@ export default {
       await axios
         .get(`${URL}/cards/website`)
         .then((res) => {
-          const cards = res.data.sort((a, b) => new Date(a.travelDate) - new Date(b.travelDate));
+          const cards = res.data.sort(
+            (a, b) => new Date(a.travelDate) - new Date(b.travelDate)
+          );
           this.cards = cards;
           this.onResize(cards);
         })
