@@ -12,7 +12,7 @@ import UpdateCardVue from '@/views/UpdateCard.vue';
 import TravelsVue from '@/views/Travels.vue';
 import EditProfileVue from '@/views/EditProfile.vue';
 import ManageCommitVue from '@/views/ManageCommit.vue';
-import usersVue from '@/views/users.vue';
+import UsersVue from '@/views/Users.vue';
 
 
 const routes = [
@@ -79,7 +79,7 @@ const routes = [
   {
     path: '/users',
     name: 'users',
-    component: usersVue
+    component: UsersVue
   },
 
 

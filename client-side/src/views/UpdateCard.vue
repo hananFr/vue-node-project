@@ -18,7 +18,7 @@
 
 <script>
 import { URL } from "@/services/config";
-import myForm from "@/components/myForm.vue";
+import myForm from "@/components/MyForm.vue";
 import { CardValid } from "@/services/validateCard";
 import httpServices from "@/services/httpServices";
 

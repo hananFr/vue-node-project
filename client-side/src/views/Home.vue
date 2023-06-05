@@ -1,7 +1,7 @@
 <template>
   <div class="home col-12 d-block mx-0">
     <about :screen-width="responsiveScreen"></about>
-  <website-cards :screen-width="responsiveScreen"></website-cards>
+    <website-cards :screen-width="responsiveScreen"></website-cards>
     <events :screen-width="screenWidth"></events>
     <collaborations :screen-width="responsiveScreen"></collaborations>
     <commits :screen-width="responsiveScreen"></commits>
@@ -12,8 +12,8 @@
 import About from "@/components/About.vue";
 import WebsiteCards from "@/components/WebsiteCards.vue";
 import Events from "@/components/Events.vue";
-import collaborations from "@/components/collaborations.vue";
-import commits from "@/components/commits.vue";
+import Collaborations from "@/components/Collaborations.vue";
+import Commits from "@/components/Commits.vue";
 // @ is an alias to /src
 
 export default {
@@ -27,16 +27,17 @@ export default {
   methods: {
     onResize() {
       this.screenWidth = window.innerWidth;
-      
-      if(window.innerWidth >= 576)
-      this.responsiveScreen = window.innerWidth;
-       else if( window.innerWidth > 520) this.responsiveScreen = window.innerWidth * 1.35; 
-       else if( window.innerWidth > 430) this.responsiveScreen = window.innerWidth * 1.4; 
-       else if( window.innerWidth > 370) this.responsiveScreen = window.innerWidth * 1.45; 
-       else if( window.innerWidth > 300) this.responsiveScreen = window.innerWidth * 1.5 
-      else this.responsiveScreen = window.innerWidth * 1.65
-      ; 
 
+      if (window.innerWidth >= 576) this.responsiveScreen = window.innerWidth;
+      else if (window.innerWidth > 520)
+        this.responsiveScreen = window.innerWidth * 1.35;
+      else if (window.innerWidth > 430)
+        this.responsiveScreen = window.innerWidth * 1.4;
+      else if (window.innerWidth > 370)
+        this.responsiveScreen = window.innerWidth * 1.45;
+      else if (window.innerWidth > 300)
+        this.responsiveScreen = window.innerWidth * 1.5;
+      else this.responsiveScreen = window.innerWidth * 1.65;
     },
   },
   mounted() {
@@ -47,8 +48,8 @@ export default {
     About,
     WebsiteCards,
     Events,
-    collaborations,
-    commits,
+    Collaborations,
+    Commits,
   },
 };
 </script>

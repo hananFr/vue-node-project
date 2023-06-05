@@ -15,7 +15,7 @@
 
 
 <script>
-import myForm from "@/components/myForm.vue";
+import myForm from "@/components/MyForm.vue";
 import { URL } from "@/services/config";
 import { validateMessage } from "@/services/messageValid";
 

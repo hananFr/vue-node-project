@@ -18,7 +18,7 @@
 <script>
 import { validateEditUser } from "../services/editUserValid";
 import { URL } from "@/services/config";
-import MyForm from "@/components/myForm.vue";
+import MyForm from "@/components/MyForm.vue";
 import httpServices from "@/services/httpServices";
 export default {
   data() {

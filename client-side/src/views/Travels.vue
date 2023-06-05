@@ -40,7 +40,7 @@
 import { URL } from "@/services/config";
 import httpServices from "@/services/httpServices";
 import PageHeader from "@/components/PageHeader.vue";
-import Card from "@/components/card.vue";
+import Card from "@/components/Card.vue";
 export default {
   components: { PageHeader, Card },
   props: ["screenWidth"],

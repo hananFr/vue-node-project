@@ -1,7 +1,15 @@
 <template>
-<div>
-    <h2 :style="{ fontSize: `${30 * screenWidth / 1250}px` }">{{ pageHeader }}</h2>
-    <div :style="{ fontSize: `${22 * screenWidth / 1250}px`, lineHeight: `${28.8 * screenWidth / 1250}px` }" class="p">
+  <div>
+    <h2 :style="{ fontSize: `${(30 * screenWidth) / 1250}px` }">
+      {{ pageHeader }}
+    </h2>
+    <div
+      :style="{
+        fontSize: `${(22 * screenWidth) / 1250}px`,
+        lineHeight: `${(28.8 * screenWidth) / 1250}px`,
+      }"
+      class="p"
+    >
       <slot>{{ content }}</slot>
     </div>
   </div>
@@ -12,24 +20,27 @@ export default {
   props: ["pageHeader", "content"],
   data() {
     return {
-      screenWidth: document.body.getBoundingClientRect().width
+      screenWidth: document.body.getBoundingClientRect().width,
     };
   },
   methods: {
-
     onResize() {
-      if(document.body.getBoundingClientRect().width >= 580)
-      this.screenWidth = document.body.getBoundingClientRect().width;
-       else if( document.body.getBoundingClientRect().width > 520) this.screenWidth = document.body.getBoundingClientRect().width * 1.35; 
-       else if( document.body.getBoundingClientRect().width > 430) this.screenWidth = document.body.getBoundingClientRect().width * 1.6; 
-       else if( document.body.getBoundingClientRect().width > 370) this.screenWidth = document.body.getBoundingClientRect().width * 1.8; 
-       else if( document.body.getBoundingClientRect().width > 300) this.screenWidth = document.body.getBoundingClientRect().width * 1.82; 
-      else this.screenWidth = document.body.getBoundingClientRect().width * 2; 
+      if (document.body.getBoundingClientRect().width >= 580)
+        this.screenWidth = document.body.getBoundingClientRect().width;
+      else if (document.body.getBoundingClientRect().width > 520)
+        this.screenWidth = document.body.getBoundingClientRect().width * 1.35;
+      else if (document.body.getBoundingClientRect().width > 430)
+        this.screenWidth = document.body.getBoundingClientRect().width * 1.6;
+      else if (document.body.getBoundingClientRect().width > 370)
+        this.screenWidth = document.body.getBoundingClientRect().width * 1.8;
+      else if (document.body.getBoundingClientRect().width > 300)
+        this.screenWidth = document.body.getBoundingClientRect().width * 1.82;
+      else this.screenWidth = document.body.getBoundingClientRect().width * 2;
     },
   },
   mounted() {
     this.onResize();
-    window.addEventListener('resize', this.onResize);
+    window.addEventListener("resize", this.onResize);
   },
 };
 </script>
@@ -48,6 +59,5 @@ h2 {
   margin: 0;
   color: rgb(67, 66, 62);
   font-weight: 460;
-  
 }
 </style>

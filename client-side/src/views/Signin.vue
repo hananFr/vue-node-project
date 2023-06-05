@@ -11,9 +11,7 @@
 </template>
 
 <script>
-import { URL } from "@/services/config";
-import MyForm from "@/components/myForm.vue";
-import { login } from "@/services/userService";
+import MyForm from "@/components/MyForm.vue";
 import validateSignIn from "@/services/loginValid";
 export default {
   data() {

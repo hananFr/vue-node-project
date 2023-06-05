@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import ControllerCalendar from "./controllerCalendar.vue";
+import ControllerCalendar from "./ControllerCalendar.vue";
 import Day from "./Day.vue";
 import FooterCalendar from "./FooterCalendar.vue";
 export default {

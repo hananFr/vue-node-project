@@ -1,5 +1,4 @@
 <template>
-  8
   <div
     class="form"
     :style="{
@@ -105,10 +104,11 @@
 import { formatJewishDateInHebrew, toJewishDate } from "jewish-date";
 import PageHeader from "@/components/PageHeader.vue";
 import InputCopm from "@/components/InputCopm.vue";
+import File from "@/components/File.vue";
+import Callendar from "@/components/Callendar.vue";
 import { login } from "@/services/userService";
 import httpServices from "@/services/httpServices";
-import File from "./file.vue";
-import Callendar from "./callendar.vue";
+
 export default {
   props: [
     "model",
@@ -332,7 +332,7 @@ export default {
       this.updateImageHeight();
     },
   },
-  components: { PageHeader, InputCopm, File, Callendar, Callendar },
+  components: { PageHeader, InputCopm, File, Callendar },
 };
 </script>
 

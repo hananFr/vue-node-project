@@ -9,7 +9,7 @@
 <script>
 import MyNav from "./components/MyNav.vue";
 import About from "./components/About.vue";
-import Footer from "./components/footer.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   components: { MyNav, About, Footer },

@@ -38,13 +38,13 @@
 <script>
 import { URL } from "@/services/config";
 import PageHeader from "./PageHeader.vue";
-import BtnComp from "./btnComp.vue";
-import card from "./card.vue";
+import BtnComp from "./BtnComp.vue";
+import Card from "./Card.vue";
 
 const axios = require("axios");
 export default {
   props: ["screenWidth"],
-  components: { PageHeader, BtnComp, card },
+  components: { PageHeader, BtnComp, Card },
   data() {
     return {
       cards: [],

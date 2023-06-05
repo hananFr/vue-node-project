@@ -57,7 +57,7 @@
 
 
 <script>
-import BtnComp from "./btnComp.vue";
+import BtnComp from "./BtnComp.vue";
 import PageHeader from "./PageHeader.vue";
 export default {
   components: { PageHeader, BtnComp },

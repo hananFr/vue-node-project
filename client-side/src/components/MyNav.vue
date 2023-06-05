@@ -82,9 +82,9 @@
 </template>
 <script>
 import { getCurrentUser } from "@/services/userService";
-import mune from "./mune.vue";
+import Mune from "./Mune.vue";
 export default {
-  components: { mune },
+  components: { Mune },
   props: ["screenWidth"],
   data() {
     return {
@@ -173,6 +173,5 @@ img {
   top: 48px;
   left: 0px;
 }
-.dropdown-item {
-}
+
 </style>
