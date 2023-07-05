@@ -14,19 +14,6 @@ const path = require('path');
 const logger = require('morgan');
 require('dotenv').config();
 
-
-
-
-const dir = __dirname + '/uploads';
-if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
-}
-
-const dir1 = __dirname + '/images';
-if (!fs.existsSync(dir1)) {
-    fs.mkdirSync(dir1);
-}
-
 const password = encodeURIComponent(process.env.PASSWORD);
 const uri = `mongodb+srv://hananfruman:${password}@server-side.2g18t.mongodb.net/?retryWrites=true&w=majority`;
 
