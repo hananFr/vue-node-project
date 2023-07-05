@@ -27,7 +27,7 @@ if (!fs.existsSync(dir1)) {
     fs.mkdirSync(dir1);
 }
 
-const password = encodeURIComponent("1q2w3e4r5t^Y");
+const password = encodeURIComponent(process.env.PASSWORD);
 const uri = `mongodb+srv://hananfruman:${password}@server-side.2g18t.mongodb.net/?retryWrites=true&w=majority`;
 
 
